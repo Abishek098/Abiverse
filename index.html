@@ -1,896 +1,541 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Abishek Sivaraj | XR Developer</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      background:#101415;
-      color:#e0e3e5;
-      font-family:'Inter',sans-serif;
-      overflow-x:hidden;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    img{
-      max-width:100%;
-      display:block;
-    }
-
-    .container{
-      width:min(1440px,100%);
-      margin:auto;
-      padding-inline:80px;
-    }
-
-    .section{
-      padding:100px 0;
-    }
-
-    .glass{
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.12);
-      backdrop-filter:blur(8px);
-    }
-
-    .tag{
-      font-family:'JetBrains Mono', monospace;
-      font-size:12px;
-      letter-spacing:.08em;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:#272a2c;
-      color:#c7c6ca;
-    }
-
-    .hero-tag{
-      background:rgba(255,255,255,.05);
-      color:#adc6ff;
-    }
-
-    .btn{
-      padding:16px 32px;
-      border-radius:8px;
-      font-weight:600;
-      font-family:'Sora',sans-serif;
-      font-size:14px;
-      transition:.3s ease;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-
-    .btn-primary{
-      background:#c8c6c7;
-      color:#313031;
-    }
-
-    .btn-secondary{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.2);
-      color:#fff;
-    }
-
-    .btn:hover{
-      transform:translateY(-2px);
-    }
-
-    /* NAV */
-
-    nav{
-      position:fixed;
-      width:100%;
-      top:0;
-      left:0;
-      z-index:1000;
-      background:rgba(16,20,21,.8);
-      backdrop-filter:blur(8px);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .nav-inner{
-      height:80px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .logo{
-      font-family:'Sora',sans-serif;
-      font-size:18px;
-      font-weight:700;
-      letter-spacing:.02em;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:28px;
-    }
-
-    .nav-links a{
-      font-family:'JetBrains Mono', monospace;
-      font-size:12px;
-      color:#c7c6ca;
-      letter-spacing:.08em;
-    }
-
-    .resume-btn{
-      background:#c8c6c7;
-      color:#313031;
-      padding:12px 24px;
-      border-radius:999px;
-      font-family:'JetBrains Mono', monospace;
-      font-size:12px;
-      font-weight:600;
-    }
-
-    /* HERO */
-
-    .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .hero::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at center, rgba(173,198,255,.15), transparent 60%);
-      pointer-events:none;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:40px;
-      align-items:center;
-    }
-
-    .hero h1{
-      font-family:'Sora',sans-serif;
-      font-size:72px;
-      line-height:1.1;
-      margin-top:24px;
-      margin-bottom:12px;
-      font-weight:800;
-    }
-
-    .hero h2{
-      font-family:'Sora',sans-serif;
-      font-size:24px;
-      line-height:1.5;
-      color:#c7c6ca;
-      margin-bottom:24px;
-      font-weight:600;
-    }
-
-    .hero p{
-      max-width:580px;
-      font-size:18px;
-      line-height:1.8;
-      color:#919094;
-      margin-bottom:32px;
-    }
-
-    .hero-buttons{
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .hero-image{
-      width:100%;
-      aspect-ratio:1;
-      border-radius:50%;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.1);
-      background:rgba(255,255,255,.05);
-      backdrop-filter:blur(10px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-    }
-
-    .hero-image img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      border-radius:50%;
-    }
-
-    /* TITLES */
-
-    .section-title{
-      font-family:'Sora',sans-serif;
-      font-size:48px;
-      font-weight:700;
-      margin-bottom:60px;
-    }
-
-    .center{
-      text-align:center;
-    }
-
-    /* FEATURED */
-
-    .featured-card{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      overflow:hidden;
-      border-radius:16px;
-    }
-
-    .featured-image{
-      min-height:560px;
-      overflow:hidden;
-    }
-
-    .featured-image img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .featured-content{
-      padding:80px 40px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .tag-group{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:28px;
-    }
-
-    .featured-content h3{
-      font-family:'Sora',sans-serif;
-      font-size:48px;
-      line-height:1.2;
-      margin-bottom:24px;
-    }
-
-    .featured-content p{
-      font-size:18px;
-      line-height:1.8;
-      color:#919094;
-      margin-bottom:32px;
-    }
-
-    .case-link{
-      color:#adc6ff;
-      font-family:'JetBrains Mono', monospace;
-      font-size:12px;
-      letter-spacing:.08em;
-    }
-
-    /* TECH */
-
-    .tech-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      gap:20px;
-      margin-top:80px;
-    }
-
-    .tech-card{
-      border-radius:14px;
-      padding:30px;
-    }
-
-    .tech-card h3{
-      font-family:'Sora',sans-serif;
-      font-size:24px;
-      margin-bottom:28px;
-    }
-
-    .tech-list{
-      display:flex;
-      flex-direction:column;
-      gap:22px;
-    }
-
-    .tech-item{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      color:#e0e3e5;
-    }
-
-    .soft-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .soft-tags span{
-      padding:10px 16px;
-      border-radius:8px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);
-      font-family:'JetBrains Mono', monospace;
-      font-size:12px;
-    }
-
-    /* TIMELINE */
-
-    .timeline{
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      gap:80px;
-      margin-top:80px;
-    }
-
-    .timeline::before{
-      content:'';
-      position:absolute;
-      top:0;
-      bottom:0;
-      left:50%;
-      width:1px;
-      background:#46464a;
-      transform:translateX(-50%);
-    }
-
-    .timeline-item{
-      display:flex;
-      position:relative;
-    }
-
-    .timeline-item:nth-child(even){
-      justify-content:flex-end;
-    }
-
-    .timeline-card{
-      width:45%;
-      padding:28px;
-      border-radius:14px;
-      position:relative;
-    }
-
-    .timeline-dot{
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:16px;
-      height:16px;
-      background:#adc6ff;
-      border-radius:50%;
-      transform:translate(-50%,-50%);
-      box-shadow:0 0 20px #adc6ff;
-    }
-
-    .timeline-card small{
-      font-family:'JetBrains Mono', monospace;
-      color:#adc6ff;
-      letter-spacing:.08em;
-      font-size:12px;
-    }
-
-    .timeline-card h3{
-      font-family:'Sora',sans-serif;
-      font-size:24px;
-      margin:18px 0 12px;
-    }
-
-    .timeline-card p{
-      color:#919094;
-      line-height:1.6;
-    }
-
-    /* QUALIFICATION */
-
-    .qualification-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:24px;
-      margin-top:60px;
-    }
-
-    .qualification-card{
-      padding:30px;
-      border-radius:14px;
-      position:relative;
-    }
-
-    .qualification-card small{
-      color:#adc6ff;
-      font-family:'JetBrains Mono', monospace;
-      letter-spacing:.08em;
-      font-size:12px;
-    }
-
-    .qualification-card h3{
-      font-family:'Sora',sans-serif;
-      font-size:24px;
-      line-height:1.5;
-      margin:18px 0;
-    }
-
-    .qualification-card p{
-      color:#919094;
-      line-height:1.7;
-    }
-
-    /* FOOTER */
-
-    footer{
-      border-top:1px solid #46464a;
-      padding:100px 0 40px;
-    }
-
-    .footer-top{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:40px;
-      margin-bottom:60px;
-    }
-
-    .footer-top h2{
-      font-family:'Sora',sans-serif;
-      font-size:48px;
-      line-height:1.2;
-      margin-bottom:24px;
-    }
-
-    .footer-email{
-      color:#adc6ff;
-      font-family:'Sora',sans-serif;
-      font-size:24px;
-      font-weight:600;
-      margin-bottom:10px;
-    }
-
-    .footer-location{
-      color:#919094;
-      font-size:18px;
-    }
-
-    .socials{
-      display:flex;
-      gap:20px;
-    }
-
-    .socials a{
-      width:52px;
-      height:52px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);
-      color:#fff;
-      font-size:14px;
-    }
-
-    .footer-bottom{
-      border-top:1px solid rgba(255,255,255,.05);
-      padding-top:24px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      gap:20px;
-    }
-
-    .footer-bottom p,
-    .footer-bottom a{
-      font-family:'JetBrains Mono', monospace;
-      font-size:12px;
-      letter-spacing:.08em;
-      color:#c7c6ca;
-    }
-
-    .footer-links{
-      display:flex;
-      gap:24px;
-    }
-
-    /* RESPONSIVE */
-
-    @media(max-width:1100px){
-
-      .hero-grid,
-      .featured-card,
-      .tech-grid,
-      .qualification-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero-image{
-        max-width:420px;
-        margin:auto;
-      }
-
-      .timeline::before{
-        left:20px;
-      }
-
-      .timeline-item{
-        justify-content:flex-start !important;
-        padding-left:60px;
-      }
-
-      .timeline-dot{
-        left:20px;
-      }
-
-      .timeline-card{
-        width:100%;
-      }
-
-      .footer-top{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-    }
-
-    @media(max-width:768px){
-
-      .container{
-        padding-inline:24px;
-      }
-
-      nav .nav-links,
-      nav .resume-btn{
-        display:none;
-      }
-
-      .hero h1{
-        font-size:48px;
-      }
-
-      .section-title{
-        font-size:36px;
-      }
-
-      .featured-content{
-        padding:40px 24px;
-      }
-
-      .featured-content h3{
-        font-size:34px;
-      }
-
-      .footer-top h2{
-        font-size:36px;
-      }
-
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Abiverse — Abishek Sivaraj, Unity XR Developer.">
+<title>ABIVERSE — Unity XR Developer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+  :root{
+    --bg:#131314;
+    --panel:#1f2020;
+    --text:#e4e2e2;
+    --muted:rgba(228,226,226,.70);
+    --dim:rgba(228,226,226,.50);
+    --line:rgba(228,226,226,.10);
+    --green:#00e1ab;
+    --content:1152px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--bg)}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  button{font:inherit}
+  .mono{font-family:"JetBrains Mono",Consolas,monospace}
+  .display{font-family:"Space Grotesk",Arial,sans-serif}
+
+  .nav{
+    position:fixed;
+    inset:0 0 auto 0;
+    z-index:20;
+    height:87px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:24px 64px 25px;
+    background:rgba(19,19,20,.84);
+    backdrop-filter:blur(5px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font:500 32px/38px "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-.8px;
+    text-transform:uppercase;
+  }
+  .navlinks{display:flex;gap:34px;align-items:center}
+  .navlinks a{
+    position:relative;
+    font:400 12px/16px "JetBrains Mono",Consolas,monospace;
+    letter-spacing:.6px;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .navlinks a.active{color:var(--green);font-weight:500}
+  .navlinks a.active:before{content:attr(data-num);margin-right:4px}
+
+  main{padding-top:87px}
+  section{border-top:1px solid var(--line)}
+  .hero{
+    min-height:593px;
+    padding:116px 64px 48px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
+  .hero-inner{max-width:var(--content);width:100%;margin:0 auto}
+  .eyebrow{
+    color:rgba(228,226,226,.6);
+    font:400 12px/16px "JetBrains Mono",Consolas,monospace;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    margin:40px 0 0;
+    max-width:1024px;
+    font:700 clamp(64px,8.33vw,120px)/.92 "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-4.8px;
+    text-transform:uppercase;
+  }
+  .hero-sub{
+    margin-top:32px;
+    max-width:768px;
+    font:500 clamp(28px,3.35vw,48px)/1.08 "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-.48px;
+    color:rgba(228,226,226,.8);
+  }
+  .scroll-cue{
+    position:absolute;
+    left:64px;
+    bottom:48px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .scroll-cue:before{content:"";width:48px;height:1px;background:rgba(228,226,226,.3)}
+
+  .editorial{
+    padding:193px 64px 192px;
+  }
+  .editorial-grid{
+    width:100%;
+    max-width:var(--content);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    gap:32px;
+    align-items:center;
+  }
+  .editorial h2{
+    grid-column:1 / span 7;
+    margin:0;
+    font:600 clamp(48px,5.56vw,80px)/1.05 "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-1.6px;
+  }
+  .editorial p{
+    grid-column:9 / span 4;
+    margin:0;
+    font:400 20px/32px Inter,Arial,sans-serif;
+    color:var(--muted);
+  }
+
+  .work{padding:193px 64px 192px}
+  .section-head{max-width:var(--content);margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between}
+  .kicker{
+    color:var(--green);
+    font:400 12px/16px "JetBrains Mono",Consolas,monospace;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+  }
+  .filters{display:flex;gap:16px}
+  .filter{
+    border:0;background:none;color:rgba(228,226,226,.5);
+    font:400 12px/16px "JetBrains Mono",Consolas,monospace;
+    letter-spacing:.6px;text-transform:uppercase;cursor:pointer;padding:0 0 5px;
+  }
+  .filter.active{color:var(--green);border-bottom:1px solid var(--green)}
+  .projects{max-width:var(--content);margin:64px auto 0;display:flex;flex-direction:column;gap:96px}
+  .project{
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    gap:32px;
+    padding-bottom:65px;
+    border-bottom:1px solid var(--line);
+    align-items:center;
+  }
+  .project:last-child{border-bottom:0;padding-bottom:0}
+  .project.reverse .visual{grid-column:5 / span 8;grid-row:1}
+  .visual{grid-column:1 / span 8;grid-row:1;aspect-ratio:16/9;background:var(--panel);border-radius:2px;overflow:hidden;position:relative}
+  .visual:after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.4);mix-blend-mode:saturation;pointer-events:none}
+  .visual img{filter:saturate(.75)}
+  .copy{grid-column:9 / span 4;grid-row:1;align-self:center}
+  .project.reverse .copy{grid-column:1 / span 4;grid-row:1}
+  .project-meta{color:var(--green);font:400 12px/16px "JetBrains Mono",Consolas,monospace;letter-spacing:.6px;text-transform:uppercase;margin-bottom:24px}
+  .project h3{
+    margin:0 0 24px;
+    font:500 clamp(36px,3.35vw,48px)/1.08 "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-.48px;
+    text-transform:uppercase;
+  }
+  .project-link{
+    display:inline-block;
+    padding-bottom:5px;
+    border-bottom:1px solid rgba(228,226,226,.3);
+    color:rgba(228,226,226,.7);
+    font:400 12px/16px "JetBrains Mono",Consolas,monospace;
+    letter-spacing:.6px;
+  }
+
+  .marquee{
+    overflow:hidden;
+    padding:97px 0;
+    background:rgba(31,32,32,.3);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .marquee-track{
+    width:max-content;
+    display:flex;
+    animation:marquee 28s linear infinite;
+  }
+  .marquee-text{
+    white-space:nowrap;
+    padding-left:32px;
+    font:700 120px/.92 "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-4.8px;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(228,226,226,.13);
+  }
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  .experience{padding:192px 64px 193px}
+  .experience-grid{
+    max-width:var(--content);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    gap:32px;
+  }
+  .experience-left{grid-column:1 / span 4}
+  .experience-left h2{
+    margin:64px 0 48px;
+    font:500 48px/52px "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-.48px;
+    text-transform:uppercase;
+  }
+  .cert-label{
+    color:rgba(228,226,226,.6);
+    font:400 12px/16px "JetBrains Mono",Consolas,monospace;
+    letter-spacing:.6px;
+    margin-bottom:24px;
+  }
+  .cert{
+    border-left:2px solid var(--green);
+    padding-left:18px;
+    font:400 20px/32px Inter,Arial,sans-serif;
+  }
+  .experience-right{grid-column:5 / span 8}
+  .exp-list{display:flex;flex-direction:column}
+  .exp-item{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    min-height:86px;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .exp-role{padding-top:0;font:400 20px/32px Inter,Arial,sans-serif}
+  .exp-type{margin-top:4px;color:var(--dim);font:400 12px/16px "JetBrains Mono",Consolas,monospace}
+  .exp-company{text-align:center;padding-top:5px;color:rgba(228,226,226,.8);font:400 16px/24px Inter,Arial,sans-serif}
+  .exp-date{text-align:right;padding-top:11px;color:var(--dim);font:400 12px/16px "JetBrains Mono",Consolas,monospace}
+  .arsenal{margin-top:64px}
+  .arsenal-title{color:rgba(228,226,226,.6);font:400 12px/16px "JetBrains Mono",Consolas,monospace;letter-spacing:.6px}
+  .skill-cloud{
+    margin-top:32px;
+    min-height:139px;
+    position:relative;
+    white-space:nowrap;
+  }
+  .skill{position:absolute;display:block}
+  .skill.s1{left:0;top:0;font:600 80px/84px "Space Grotesk";color:var(--text)}
+  .skill.s2{left:32%;top:12px;font:500 48px/52px "Space Grotesk";color:rgba(228,226,226,.8)}
+  .skill.s3{left:43%;top:24px;font:500 32px/38px "Space Grotesk";color:rgba(228,226,226,.6)}
+  .skill.s4{left:61%;top:30px;font:400 20px/32px Inter;color:rgba(228,226,226,.5)}
+  .skill.s5{left:79%;top:12px;font:500 48px/52px "Space Grotesk";color:rgba(228,226,226,.9)}
+  .skill.s6{left:0;top:100px;font:500 32px/38px "Space Grotesk";color:rgba(228,226,226,.7)}
+  .skill.s7{left:9%;top:107px;font:400 20px/32px Inter;color:rgba(228,226,226,.5)}
+  .skill.s8{left:30%;top:100px;font:500 32px/38px "Space Grotesk";color:rgba(228,226,226,.8)}
+
+  .contact{
+    padding:192px 64px;
+    min-height:799px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .contact h2{
+    margin:0;
+    text-align:center;
+    font:700 clamp(68px,8.33vw,120px)/.92 "Space Grotesk",Arial,sans-serif;
+    letter-spacing:-4.8px;
+    text-transform:uppercase;
+  }
+  .contact-links{display:flex;gap:64px;margin-top:64px}
+  .contact-links a{font:400 12px/16px "JetBrains Mono",Consolas,monospace;letter-spacing:.6px;color:var(--text);padding-bottom:5px}
+
+  footer{
+    min-height:135px;
+    padding:49px 64px 48px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .foot-brand{font:500 32px/38px "Space Grotesk",Arial,sans-serif;opacity:.8}
+  .foot-copy{font:400 14px/20px Inter,Arial,sans-serif;color:var(--dim)}
+  .foot-links{display:flex;gap:24px}
+  .foot-links a{font:400 12px/16px "JetBrains Mono",Consolas,monospace;letter-spacing:.6px;color:var(--dim)}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+  .fade-in.is-visible{opacity:1;transform:none}
+
+  @media (max-width: 900px){
+    .nav{padding:20px 24px;height:72px}
+    main{padding-top:72px}
+    .navlinks{gap:18px}
+    .brand{font-size:26px}
+    .navlinks a{font-size:10px}
+    .hero,.editorial,.work,.experience,.contact{padding-left:24px;padding-right:24px}
+    .hero{padding-top:90px;min-height:560px}
+    .hero h1{letter-spacing:-2.5px}
+    .hero-sub{font-size:32px}
+    .scroll-cue{left:24px}
+    .editorial{padding-top:120px;padding-bottom:120px}
+    .editorial-grid{grid-template-columns:1fr;gap:48px}
+    .editorial h2,.editorial p{grid-column:1}
+    .work{padding-top:120px;padding-bottom:120px}
+    .section-head{align-items:flex-start;gap:20px;flex-direction:column}
+    .projects{margin-top:48px;gap:64px}
+    .project,.project.reverse{grid-template-columns:1fr;gap:28px}
+    .visual,.project.reverse .visual{grid-column:1;grid-row:auto}
+    .copy,.project.reverse .copy{grid-column:1;grid-row:auto}
+    .experience{padding-top:120px;padding-bottom:120px}
+    .experience-grid{grid-template-columns:1fr;gap:72px}
+    .experience-left,.experience-right{grid-column:1}
+    .experience-left h2{font-size:42px}
+    .exp-item{grid-template-columns:1fr;gap:10px;padding:18px 0}
+    .exp-company,.exp-date{text-align:left;padding-top:0}
+    .skill-cloud{min-height:220px}
+    .skill.s1{font-size:60px}
+    .skill.s2{left:42%;font-size:38px}
+    .skill.s3{left:60%;font-size:26px}
+    .skill.s4{left:44%;top:62px}
+    .skill.s5{left:70%;top:88px;font-size:40px}
+    .skill.s6{top:118px}
+    .skill.s7{left:13%;top:132px}
+    .skill.s8{left:48%;top:132px}
+    .contact{min-height:620px;padding-top:120px;padding-bottom:120px}
+    .contact h2{letter-spacing:-2.8px}
+    .contact-links{gap:28px;flex-wrap:wrap;justify-content:center}
+    footer{padding:36px 24px;flex-direction:column;gap:22px;align-items:flex-start}
+  }
+  @media (max-width: 560px){
+    .nav{height:auto;min-height:72px;flex-wrap:wrap;gap:14px}
+    .navlinks{width:100%;justify-content:space-between;gap:10px}
+    .hero{padding-top:60px;min-height:610px}
+    .hero h1{font-size:56px;line-height:.95;letter-spacing:-2px}
+    .hero-sub{font-size:26px;line-height:1.1}
+    .editorial h2{font-size:46px}
+    .editorial p{font-size:17px;line-height:28px}
+    .project h3{font-size:40px}
+    .marquee-text{font-size:76px}
+    .contact h2{font-size:64px}
+    .contact-links{flex-direction:column;align-items:center}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
 </head>
-
 <body>
-
-  <!-- NAV -->
-
-  <nav>
-    <div class="container nav-inner">
-      <div class="logo">Abishek Sivaraj</div>
-
-      <div class="nav-links">
-        <a href="#work">WORK</a>
-        <a href="#tech">TECH STACK</a>
-        <a href="#journey">EXPERIENCE</a>
-        <a href="#contact">CONTACT</a>
-      </div>
-
-      <a href="#" class="resume-btn">DOWNLOAD RESUME</a>
-    </div>
+<header class="nav">
+  <a class="brand" href="#top">ABIVERSE</a>
+  <nav class="navlinks" aria-label="Primary">
+    <a class="active" data-num="01" href="#work">WORK</a>
+    <a href="#about">ABOUT</a>
+    <a href="#experience">EXPERIENCE</a>
+    <a href="#contact">CONTACT</a>
   </nav>
+</header>
 
-  <!-- HERO -->
-
+<main id="top">
   <section class="hero">
-    <div class="container hero-grid">
+    <div class="hero-inner fade-in">
+      <div class="eyebrow">ABISHEK SIVARAJ | UNITY XR DEVELOPER | COIMBATORE, INDIA</div>
+      <h1 class="display">I BUILD IMMERSIVE EXPERIENCES.</h1>
+      <div class="hero-sub display">Unity XR Developer specializing in AR/VR, 3D and immersive experience design.</div>
+    </div>
+    <div class="scroll-cue mono"><span>SCROLL TO EXPLORE</span></div>
+  </section>
 
-      <div>
-        <span class="tag hero-tag">XR CREATIVE TECHNOLOGIST</span>
-
-        <h1>Abishek Sivaraj</h1>
-
-        <h2>
-          Unity XR Developer | UI/UX for Immersive Media |
-          3D Visualizer
-        </h2>
-
-        <p>
-          Bridging the gap between visual design and real-time XR development using Unity and Meta Building Blocks to craft high-fidelity spatial experiences.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#work" class="btn btn-primary">View Projects</a>
-          <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-        </div>
-      </div>
-
-      <div class="hero-image">
-        <img src="https://www.figma.com/api/mcp/asset/63eaa9b7-68f1-46ca-8aa5-550c56b24c78" alt="Abishek">
-      </div>
-
+  <section class="editorial" id="about">
+    <div class="editorial-grid fade-in">
+      <h2 class="display">I build interactive experiences where technology, space and human interaction meet.</h2>
+      <p>My focus is on crafting robust, performant XR applications using Unity and emerging spatial computing frameworks. With a strong foundation in 3D modeling and interaction design, I bridge the gap between technical execution and intuitive user experiences, turning complex environments into accessible digital realities.</p>
     </div>
   </section>
 
-  <!-- FEATURED WORK -->
-
-  <section class="section" id="work">
-
-    <div class="container">
-
-      <h2 class="section-title center">Featured Work</h2>
-
-      <div class="featured-card glass">
-
-        <div class="featured-image">
-          <img src="https://www.figma.com/api/mcp/asset/6cd34253-7ba8-4907-9199-0da40309b529" alt="">
-        </div>
-
-        <div class="featured-content">
-
-          <div class="tag-group">
-            <span class="tag">Unity</span>
-            <span class="tag">C#</span>
-            <span class="tag">Meta Quest 3</span>
-            <span class="tag" style="background:#0566d9;color:#fff;">Pure VR</span>
-          </div>
-
-          <h3>
-            Interactive VR Bird Anatomy Application
-          </h3>
-
-          <p>
-            An educational simulation developed for the Meta Quest 3 featuring a highly detailed, interactive 3D crow model. Users can dissect layers of anatomy in real-time, utilizing custom-built gesture controls and spatial UI systems.
-          </p>
-
-          <a href="#" class="case-link">
-            EXPLORE CASE STUDY →
-          </a>
-
-        </div>
-
+  <section class="work" id="work">
+    <div class="section-head fade-in">
+      <div class="kicker">[ SELECTED EXPERIENCES ]</div>
+      <div class="filters" role="tablist" aria-label="Filter work">
+        <button class="filter active" data-filter="all">ALL</button>
+        <button class="filter" data-filter="AR">AR</button>
+        <button class="filter" data-filter="VR">VR</button>
+        <button class="filter" data-filter="EDUCATION">EDUCATION</button>
+        <button class="filter" data-filter="TRAINING">TRAINING</button>
       </div>
-
-      <!-- TECH STACK -->
-
-      <div class="tech-grid" id="tech">
-
-        <div class="tech-card glass">
-
-          <h3 style="color:#adc6ff;">Core Engine</h3>
-
-          <div class="tech-list">
-
-            <div class="tech-item">
-              <span>Unity Engine</span>
-              <span>●</span>
-            </div>
-
-            <div class="tech-item">
-              <span>C# Scripting</span>
-              <span>●</span>
-            </div>
-
-            <div class="tech-item">
-              <span>Meta Building Blocks</span>
-              <span>●</span>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="tech-card glass">
-
-          <h3 style="color:#ddb7ff;">3D & Design</h3>
-
-          <div class="soft-tags">
-            <span>Autodesk Maya</span>
-            <span>Figma</span>
-            <span>Photoshop</span>
-            <span>After Effects</span>
-          </div>
-
-        </div>
-
-        <div class="tech-card glass">
-
-          <h3>Soft Skills</h3>
-
-          <div class="soft-tags">
-            <span>Leadership</span>
-            <span>Problem-solving</span>
-            <span>Adaptability</span>
-            <span>Creativity</span>
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
 
+    <div class="projects">
+      <article class="project fade-in" data-tags="AR EDUCATION">
+        <div class="visual"><img src="https://www.figma.com/api/mcp/asset/46f4318f-4947-46a2-9086-c65459e1dd80.png" alt="AR Alphabets project"></div>
+        <div class="copy">
+          <div class="project-meta">01 // AR / EDUCATION / UNITY + VUFORIA</div>
+          <h3 class="display">AR ALPHABETS</h3>
+          <a class="project-link" href="#" aria-label="View AR Alphabets project">VIEW PROJECT →</a>
+        </div>
+      </article>
+
+      <article class="project reverse fade-in" data-tags="AR">
+        <div class="visual"><img src="https://www.figma.com/api/mcp/asset/54131ad4-c194-4c10-8da4-6afe54e921e5.png" alt="AR Indoor Navigation project"></div>
+        <div class="copy">
+          <div class="project-meta">02 // AR / SPATIAL COMPUTING / UNITY</div>
+          <h3 class="display">AR INDOOR NAVIGATION</h3>
+          <a class="project-link" href="#" aria-label="View AR Indoor Navigation project">VIEW PROJECT →</a>
+        </div>
+      </article>
+
+      <article class="project fade-in" data-tags="VR EDUCATION">
+        <div class="visual"><img src="https://www.figma.com/api/mcp/asset/e107d2d6-3368-406a-8442-196e37b24b0d.png" alt="VR Stroke Rehabilitation project"></div>
+        <div class="copy">
+          <div class="project-meta">03 // VR / HEALTHCARE / UNITY + META QUEST</div>
+          <h3 class="display">VR STROKE REHABILITATION</h3>
+          <a class="project-link" href="#" aria-label="View VR Stroke Rehabilitation project">VIEW PROJECT →</a>
+        </div>
+      </article>
+
+      <article class="project reverse fade-in" data-tags="VR TRAINING">
+        <div class="visual"><img src="https://www.figma.com/api/mcp/asset/ef19d5f9-fbcb-4bd9-ade4-b84304057863.png" alt="VR Biosafety Cabinet project"></div>
+        <div class="copy">
+          <div class="project-meta">04 // VR / TRAINING / UNITY + META QUEST</div>
+          <h3 class="display">VR BIOSAFETY CABINET</h3>
+          <a class="project-link" href="#" aria-label="View VR Biosafety Cabinet project">VIEW PROJECT →</a>
+        </div>
+      </article>
+
+      <article class="project fade-in" data-tags="VR EDUCATION">
+        <div class="visual"><img src="https://www.figma.com/api/mcp/asset/ecc9d1c2-e666-46b2-947d-888da916987c.png" alt="VR Bird Anatomy project"></div>
+        <div class="copy">
+          <div class="project-meta">05 // VR / EDUCATION / 3D / UNITY</div>
+          <h3 class="display">VR BIRD ANATOMY</h3>
+          <a class="project-link" href="#" aria-label="View VR Bird Anatomy project">VIEW PROJECT →</a>
+        </div>
+      </article>
+    </div>
   </section>
 
-  <!-- JOURNEY -->
-
-  <section class="section" id="journey">
-
-    <div class="container">
-
-      <h2 class="section-title">Professional Journey</h2>
-
-      <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="timeline-card glass">
-            <small>Aug 2023 - Present</small>
-            <h3>PSGR Krishnammal College for Women</h3>
-            <p>Lead Creative Technologist & Immersive Mentor</p>
-          </div>
-          <div class="timeline-dot"></div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-card glass">
-            <small>2019 - 2021</small>
-            <h3>Adoro Institute</h3>
-            <p>Visual Media Specialist</p>
-          </div>
-          <div class="timeline-dot" style="background:#919094; box-shadow:none;"></div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-card glass">
-            <small>2018 - 2019</small>
-            <h3>Campus Images</h3>
-            <p>Creative Associate</p>
-          </div>
-          <div class="timeline-dot" style="background:#919094; box-shadow:none;"></div>
-        </div>
-
-      </div>
-
+  <section class="marquee" aria-label="Engineering immersive experiences">
+    <div class="marquee-track">
+      <div class="marquee-text">ENGINEERING IMMERSIVE EXPERIENCES →</div>
+      <div class="marquee-text">ENGINEERING IMMERSIVE EXPERIENCES →</div>
     </div>
-
   </section>
 
-  <!-- QUALIFICATIONS -->
-
-  <section class="section">
-
-    <div class="container">
-
-      <h2 class="section-title">Qualifications</h2>
-
-      <div class="qualification-grid">
-
-        <div class="qualification-card glass" style="border-color:rgba(173,198,255,.3);">
-
-          <small>APRIL 2025</small>
-
-          <h3>
-            Unity Certified Associate
-          </h3>
-
-          <p>
-            Professional Game Developer Certification
-          </p>
-
-        </div>
-
-        <div class="qualification-card glass">
-
-          <small>PROFESSIONAL CERTIFICATE</small>
-
-          <h3>
-            Google UI/UX
-          </h3>
-
-          <p>
-            End-to-end design methodology and systems thinking.
-          </p>
-
-        </div>
-
-        <div class="qualification-card glass">
-
-          <small>ENGINEERING DEGREE</small>
-
-          <h3>
-            Bachelor of Civil Engineering
-          </h3>
-
-          <p>
-            Government College of Technology (GCT)
-          </p>
-
-        </div>
-
+  <section class="experience" id="experience">
+    <div class="experience-grid fade-in">
+      <div class="experience-left">
+        <div class="kicker">[ EXPERIENCE ]</div>
+        <h2 class="display">BUILDING.<br>TEACHING.<br>EXPLORING.</h2>
+        <div class="cert-label">CERTIFICATION</div>
+        <div class="cert">Unity Certified Associate - Game Developer</div>
       </div>
 
-    </div>
+      <div class="experience-right">
+        <div class="exp-list">
+          <div class="exp-item">
+            <div><div class="exp-role">Training &amp; Dev Associate</div><div class="exp-type">XR &amp; 3D</div></div>
+            <div class="exp-company">PSGR Krishnammal College for Women</div>
+            <div class="exp-date">Aug 2023 - Present</div>
+          </div>
+          <div class="exp-item">
+            <div><div class="exp-role">Adjunct Faculty</div><div class="exp-type">3D Animation</div></div>
+            <div class="exp-company">PSGR Krishnammal College for Women</div>
+            <div class="exp-date">Feb 2021 - Jul 2023</div>
+          </div>
+          <div class="exp-item">
+            <div><div class="exp-role">3D Faculty &amp; Designer</div></div>
+            <div class="exp-company">Adoro Institute of Multimedia</div>
+            <div class="exp-date">Apr 2019 - Jan 2021</div>
+          </div>
+        </div>
 
+        <div class="arsenal">
+          <div class="arsenal-title">[ ARSENAL ]</div>
+          <div class="skill-cloud">
+            <span class="skill s1 display">UNITY</span>
+            <span class="skill s2 display">XR</span>
+            <span class="skill s3 display">Vuforia</span>
+            <span class="skill s4">Meta Quest</span>
+            <span class="skill s5 display">MAYA</span>
+            <span class="skill s6 display">C#</span>
+            <span class="skill s7">AR Foundation</span>
+            <span class="skill s8 display">FIGMA</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-
-  <footer id="contact">
-
-    <div class="container">
-
-      <div class="footer-top">
-
-        <div>
-
-          <h2>
-            Ready to build immersive experiences?
-          </h2>
-
-          <div class="footer-email">
-            abishek.sivaraj.02@gmail.com
-          </div>
-
-          <div class="footer-location">
-            Coimbatore, India
-          </div>
-
-        </div>
-
-        <div class="socials">
-          <a href="#">in</a>
-          <a href="#">GH</a>
-        </div>
-
-      </div>
-
-      <div class="footer-bottom">
-
-        <p>
-          © 2024 ABISHEK SIVARAJ. ENGINEERED FOR SPATIAL REALITIES.
-        </p>
-
-        <div class="footer-links">
-          <a href="#">LinkedIn</a>
-          <a href="#">GitHub</a>
-          <a href="#">Read.cv</a>
-        </div>
-
-      </div>
-
+  <section class="contact" id="contact">
+    <h2 class="display fade-in">LET'S BUILD<br>SOMETHING<br>IMMERSIVE.</h2>
+    <div class="contact-links fade-in">
+      <a href="mailto:hello@abiverse.in">EMAIL ME</a>
+      <a href="#" aria-label="LinkedIn">LINKEDIN</a>
+      <a href="#" aria-label="Download resume">DOWNLOAD RESUME</a>
     </div>
+  </section>
+</main>
 
-  </footer>
+<footer>
+  <div class="foot-brand">ABIVERSE</div>
+  <div class="foot-copy">© 2024 ABIVERSE. BUILT FOR THE SPATIAL WEB.</div>
+  <div class="foot-links">
+    <a href="mailto:hello@abiverse.in">EMAIL</a>
+    <a href="#">LINKEDIN</a>
+    <a href="#">GITHUB</a>
+  </div>
+</footer>
 
+<script>
+(() => {
+  const filters = document.querySelectorAll('.filter');
+  const projects = document.querySelectorAll('.project');
+
+  filters.forEach(btn => btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    projects.forEach(card => {
+      const show = filter === 'all' || (card.dataset.tags || '').split(' ').includes(filter);
+      card.style.display = show ? 'grid' : 'none';
+    });
+  }));
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+})();
+</script>
 </body>
 </html>
