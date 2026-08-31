@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1D2BF2;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#08080A;stop-opacity:0.05" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E0DFD9" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#F6F5F2"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.3"/>
+  <rect width="1600" height="900" fill="url(#grad1)"/>
+
+  <!-- Icon -->
+  <g transform="translate(800, 300)" opacity="0.6">
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#1D2BF2" stroke-width="3"/><path d="M -60 -80 L 0 40 L 60 -80 Z" fill="none" stroke="#1D2BF2" stroke-width="2" stroke-linejoin="round"/><circle cx="0" cy="0" r="20" fill="none" stroke="#1D2BF2" stroke-width="2"/>
+  </g>
+
+  <!-- Text -->
+  <text x="800" y="650" font-family="'Space Grotesk', sans-serif" font-size="48" font-weight="600" text-anchor="middle" fill="#0B0B0C">
+    UNITY CERTIFIED
+  </text>
+  <text x="800" y="750" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#4A4A4E" letter-spacing="2">
+    PLACEHOLDER
+  </text>
+  <text x="800" y="820" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="300" text-anchor="middle" fill="#6E6E73">
+    Replace with actual screenshot
+  </text>
+</svg>
