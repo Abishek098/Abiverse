@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Project case study - Abishek Sivaraj XR Portfolio">
+    <title>Project Case Study | ABIVERSE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Project Detail Page Styles */
+        .project-detail-hero {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            background-color: var(--color-border);
+            margin-bottom: var(--space-8);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .project-detail-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-detail-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .project-detail-category {
+            font-size: var(--text-xs);
+            font-weight: var(--weight-semibold);
+            letter-spacing: var(--tracking-widest);
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: var(--space-2);
+        }
+
+        .project-detail-title {
+            font-size: var(--text-5xl);
+            font-weight: var(--weight-bold);
+            letter-spacing: var(--tracking-tight);
+            margin-bottom: var(--space-3);
+        }
+
+        .project-detail-description {
+            font-size: var(--text-md);
+            line-height: var(--leading-relaxed);
+            color: var(--color-ink-secondary);
+            max-width: 800px;
+        }
+
+        .project-detail-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding: var(--space-6) 0;
+            border-top: var(--border-thin) solid var(--color-border);
+            border-bottom: var(--border-thin) solid var(--color-border);
+        }
+
+        .detail-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .detail-meta-label {
+            font-size: var(--text-xs);
+            font-weight: var(--weight-semibold);
+            letter-spacing: var(--tracking-widest);
+            text-transform: uppercase;
+            color: var(--color-ink-muted);
+        }
+
+        .detail-meta-value {
+            font-size: var(--text-base);
+            font-weight: var(--weight-medium);
+            color: var(--color-ink);
+        }
+
+        .project-section {
+            padding: var(--space-8) 0;
+            border-bottom: var(--border-thin) solid var(--color-border);
+        }
+
+        .project-section-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-bold);
+            margin-bottom: var(--space-4);
+        }
+
+        .project-section-content {
+            font-size: var(--text-base);
+            line-height: var(--leading-relaxed);
+            color: var(--color-ink-secondary);
+            max-width: 800px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: var(--space-6) 0;
+        }
+
+        .video-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: var(--radius-md);
+        }
+
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, var(--color-accent-muted) 0%, var(--color-border) 100%);
+            border-radius: var(--radius-md);
+            gap: var(--space-3);
+            text-align: center;
+        }
+
+        .video-placeholder p {
+            font-size: var(--text-lg);
+            font-weight: var(--weight-semibold);
+            color: var(--color-ink);
+            margin: 0;
+        }
+
+        .video-placeholder-subtitle {
+            font-size: var(--text-sm);
+            color: var(--color-ink-muted) !important;
+            font-weight: var(--weight-normal) !important;
+        }
+
+        .project-navigation {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
+            margin-top: var(--space-12);
+            padding: var(--space-8) 0;
+            border-top: var(--border-thin) solid var(--color-border);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .nav-item a {
+            flex: 1;
+            text-align: center;
+            padding: var(--space-3);
+            border: var(--border-thin) solid var(--color-border);
+            border-radius: var(--radius-md);
+            transition: var(--transition-base);
+            word-break: break-word;
+        }
+
+        .nav-item a:hover {
+            border-color: var(--color-accent);
+            background-color: var(--color-accent-muted);
+        }
+
+        .nav-center a {
+            padding: var(--space-2) var(--space-4);
+        }
+
+        @media (max-width: 768px) {
+            .project-detail-title {
+                font-size: var(--text-4xl);
+            }
+
+            .project-detail-meta {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+
+            .project-navigation {
+                grid-template-columns: 1fr;
+            }
+
+            .project-section-title {
+                font-size: var(--text-2xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="nav" id="nav" role="banner">
+        <div class="nav-container">
+            <a href="/" class="nav-logo" aria-label="ABIVERSE Home">
+                <span class="logo-text">ABIVERSE</span>
+                <span class="logo-dot" aria-hidden="true"></span>
+            </a>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="/" class="nav-link">HOME</a></li>
+                    <li><a href="/#projects" class="nav-link">PROJECTS</a></li>
+                    <li><a href="/#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="/#contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn btn-primary nav-cta" id="navCta">LET'S TALK</button>
+                <button class="btn btn-ghost xr-toggle" id="xrToggle" aria-label="Toggle XR Mode" aria-pressed="false">
+                    <span class="xr-toggle-icon" aria-hidden="true"></span>
+                    <span>XR</span>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true"></div>
+    </header>
+
+    <main id="main" role="main">
+        <div class="container">
+            <!-- Hero Image -->
+            <img id="projectHeroImage" class="project-detail-hero" alt="Project hero image" loading="eager">
+
+            <!-- Project Header -->
+            <header class="project-detail-header">
+                <p class="project-detail-category" id="projectCategory"></p>
+                <h1 class="project-detail-title" id="projectTitle"></h1>
+                <p class="project-detail-description" id="projectDescription"></p>
+            </header>
+
+            <!-- Project Metadata -->
+            <div class="project-detail-meta">
+                <div class="detail-meta-item">
+                    <span class="detail-meta-label">YEAR</span>
+                    <span class="detail-meta-value" id="projectYear"></span>
+                </div>
+                <div class="detail-meta-item">
+                    <span class="detail-meta-label">MY ROLE</span>
+                    <span class="detail-meta-value" id="projectRole"></span>
+                </div>
+                <div class="detail-meta-item">
+                    <span class="detail-meta-label">DURATION</span>
+                    <span class="detail-meta-value" id="projectDuration"></span>
+                </div>
+                <div class="detail-meta-item">
+                    <span class="detail-meta-label">TECHNOLOGIES</span>
+                    <span class="detail-meta-value" id="projectTechnologies"></span>
+                </div>
+            </div>
+
+            <!-- Problem Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">THE PROBLEM</h2>
+                <p class="project-section-content" id="projectProblem"></p>
+            </section>
+
+            <!-- Goal Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">THE GOAL</h2>
+                <p class="project-section-content" id="projectGoal"></p>
+            </section>
+
+            <!-- Process Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">THE PROCESS</h2>
+                <p class="project-section-content" id="projectProcess"></p>
+            </section>
+
+            <!-- Challenges Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">CHALLENGES</h2>
+                <p class="project-section-content" id="projectChallenges"></p>
+            </section>
+
+            <!-- Solution Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">THE SOLUTION</h2>
+                <p class="project-section-content" id="projectSolution"></p>
+            </section>
+
+            <!-- Video Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">PROJECT VIDEO</h2>
+                <div id="projectVideoContainer"></div>
+            </section>
+
+            <!-- Result Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">THE RESULT</h2>
+                <p class="project-section-content" id="projectResult"></p>
+            </section>
+
+            <!-- Learnings Section -->
+            <section class="project-section">
+                <h2 class="project-section-title">KEY LEARNINGS</h2>
+                <p class="project-section-content" id="projectLearnings"></p>
+            </section>
+
+            <!-- Project Navigation -->
+            <nav class="project-navigation" role="navigation" aria-label="Project navigation">
+                <div class="nav-item">
+                    <a href="/" id="previousProjectBtn" class="nav-link">← Previous</a>
+                </div>
+                <div class="nav-item nav-center">
+                    <a href="/#projects" id="backToProjectsBtn" class="btn btn-outline">ALL PROJECTS</a>
+                </div>
+                <div class="nav-item">
+                    <a href="/" id="nextProjectBtn" class="nav-link">Next →</a>
+                </div>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo" aria-label="ABIVERSE Home">
+                        <span class="logo-text">ABIVERSE</span>
+                        <span class="logo-dot" aria-hidden="true"></span>
+                    </a>
+                    <p class="footer-tagline">Unity XR Developer | AR/VR | 3D & Immersive Experience Design</p>
+                </div>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <ul role="list">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#projects">Projects</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Abishek Sivaraj. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/projects.js"></script>
+    <script src="/script.js"></script>
+    <script src="/project-detail.js"></script>
+</body>
+</html>

@@ -564,10 +564,10 @@ class ProjectModal {
         if (typeof PROJECTS === 'undefined') return;
 
         const project = PROJECTS[index];
-        if (!project) return;
+        if (!project || !project.slug) return;
 
-        // Create a simple modal or navigate to detail (for now, just alert)
-        alert(`${project.title}\n\n${project.description}\n\nFull case study page coming soon.`);
+        // Navigate to project detail page
+        window.location.href = `/projects/${project.slug}/`;
     }
 }
 

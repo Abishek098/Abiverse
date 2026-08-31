@@ -20,7 +20,7 @@ const PROJECTS = [
     technologies: ['Unity', 'Vuforia', 'C#', 'AR Foundation'],
     technologies_display: 'Unity + Vuforia',
 
-    // Visual assets (use placeholders)
+    // Visual assets
     thumbnail: 'assets/projects/ar-alphabets.jpg',
     heroImage: 'assets/projects/ar-alphabets-hero.jpg',
     gallery: [
@@ -28,6 +28,11 @@ const PROJECTS = [
       'assets/projects/ar-alphabets-2.jpg',
       'assets/projects/ar-alphabets-3.jpg'
     ],
+
+    // Video URL (Google Drive)
+    // Format: https://drive.google.com/file/d/FILE_ID/view
+    // Will be converted to preview URL for embedding
+    videoUrl: 'https://drive.google.com/file/d/1Gr7kwLjAqOPFLP6XTCTjX9gXIcq_X3_7/view?usp=sharing',
 
     // Case study content
     problem: 'Traditional alphabet learning for young children lacks interactivity and visual engagement.',
@@ -67,6 +72,9 @@ const PROJECTS = [
       'assets/projects/ar-navigation-3.jpg'
     ],
 
+    // Video URL (Google Drive)
+    videoUrl: 'https://drive.google.com/file/d/1Gr7kwLjAqOPFLP6XTCTjX9gXIcq_X3_7/view?usp=sharing',
+
     // Case study content
     problem: 'Indoor navigation systems rely on GPS which is unreliable indoors, leading to poor wayfinding experiences in large buildings.',
     goal: 'Develop an AR-based indoor navigation solution using advanced spatial computing for accurate indoor positioning.',
@@ -103,6 +111,9 @@ const PROJECTS = [
       'assets/projects/vr-stroke-2.jpg',
       'assets/projects/vr-stroke-3.jpg'
     ],
+
+    // Video URL (Google Drive)
+    videoUrl: 'https://drive.google.com/file/d/1CuJ20FPt574LumyzawlK4slEuW8dr31H/view?usp=drive_link',
 
     // Case study content
     problem: 'Traditional physical therapy for stroke patients can be monotonous, lacks engagement, and progress tracking is manual.',
@@ -141,6 +152,9 @@ const PROJECTS = [
       'assets/projects/vr-biosafety-3.jpg'
     ],
 
+    // Video URL (Google Drive)
+    videoUrl: 'https://drive.google.com/file/d/1CuJ20FPt574LumyzawlK4slEuW8dr31H/view?usp=drive_link',
+
     // Case study content
     problem: 'Laboratory safety training for biosafety procedures requires expensive equipment access and carries inherent safety risks during training.',
     goal: 'Create a safe, scalable VR training environment for learning biosafety cabinet operation and laboratory protocols.',
@@ -177,6 +191,9 @@ const PROJECTS = [
       'assets/projects/vr-bird-anatomy-2.jpg',
       'assets/projects/vr-bird-anatomy-3.jpg'
     ],
+
+    // Video URL (Google Drive)
+    videoUrl: 'https://drive.google.com/file/d/1hzbbucprN9nFbFwtncpTih9w-3F0pXAU/view?usp=drive_link',
 
     // Case study content
     problem: '2D textbooks and videos fail to convey complex 3D biological structures, limiting student comprehension of avian anatomy.',

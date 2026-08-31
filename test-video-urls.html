@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video URL Test - ABIVERSE</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #0B0B0C;
+        }
+        .project {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .project h2 {
+            margin-top: 0;
+            color: #1D2BF2;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status.success {
+            background: #10b981;
+            color: white;
+        }
+        .status.error {
+            background: #ef4444;
+            color: white;
+        }
+        .url-info {
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .summary {
+            background: #0B0B0C;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .summary h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Video URL Verification Test</h1>
+
+    <div class="summary" id="summary">
+        <h2>Testing Status</h2>
+        <p>Loading projects and testing video URLs...</p>
+    </div>
+
+    <div id="results"></div>
+
+    <script src="/projects.js"></script>
+    <script src="/project-detail.js"></script>
+    <script>
+        // Test Results
+        const results = {
+            total: 0,
+            success: 0,
+            failed: 0,
+            projects: []
+        };
+
+        // Test each project
+        PROJECTS.forEach(project => {
+            results.total++;
+
+            const hasVideo = project.videoUrl && project.videoUrl.trim() !== '';
+            const isValidFormat = GoogleDriveVideoPlayer.isValidDriveUrl(project.videoUrl);
+            const embedUrl = GoogleDriveVideoPlayer.convertToEmbedUrl(project.videoUrl);
+            const embedHtml = GoogleDriveVideoPlayer.createEmbedHTML(project.videoUrl, project.title);
+
+            const testResult = {
+                title: project.title,
+                slug: project.slug,
+                hasVideo: hasVideo,
+                originalUrl: project.videoUrl,
+                isValidFormat: isValidFormat,
+                embedUrl: embedUrl,
+                success: hasVideo && isValidFormat && embedUrl !== ''
+            };
+
+            if (testResult.success) {
+                results.success++;
+            } else {
+                results.failed++;
+            }
+
+            results.projects.push(testResult);
+
+            // Render test result
+            const projectDiv = document.createElement('div');
+            projectDiv.className = 'project';
+            projectDiv.innerHTML = `
+                <h2>
+                    ${project.title}
+                    <span class="status ${testResult.success ? 'success' : 'error'}">
+                        ${testResult.success ? '✓ PASS' : '✗ FAIL'}
+                    </span>
+                </h2>
+                <p><strong>Slug:</strong> ${project.slug}</p>
+                <p><strong>Detail Page:</strong> <a href="/projects/${project.slug}/" target="_blank">/projects/${project.slug}/</a></p>
+
+                <div class="url-info">
+                    <strong>Original URL:</strong><br>
+                    ${testResult.originalUrl || '(empty)'}
+                </div>
+
+                <div class="url-info">
+                    <strong>Converted Embed URL:</strong><br>
+                    ${testResult.embedUrl || '(conversion failed)'}
+                </div>
+
+                <p><strong>Has Video:</strong> ${testResult.hasVideo ? '✓ Yes' : '✗ No'}</p>
+                <p><strong>Valid Format:</strong> ${testResult.isValidFormat ? '✓ Yes' : '✗ No'}</p>
+
+                ${testResult.success ? `
+                    <div class="video-container">
+                        <iframe
+                            src="${testResult.embedUrl}"
+                            title="${project.title} Demo Video"
+                            allow="autoplay"
+                            allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                ` : '<p style="color: #ef4444;">Video embed not available - URL conversion failed</p>'}
+            `;
+
+            document.getElementById('results').appendChild(projectDiv);
+        });
+
+        // Update summary
+        const summaryDiv = document.getElementById('summary');
+        summaryDiv.innerHTML = `
+            <h2>✅ Test Complete</h2>
+            <p><strong>Total Projects:</strong> ${results.total}</p>
+            <p><strong>Videos Working:</strong> ${results.success}</p>
+            <p><strong>Videos Failed:</strong> ${results.failed}</p>
+            ${results.failed === 0 ?
+                '<p style="color: #10b981; font-weight: bold;">🎉 All videos are configured correctly!</p>' :
+                '<p style="color: #ef4444; font-weight: bold;">⚠️ Some videos need attention</p>'
+            }
+        `;
+
+        console.log('Video Test Results:', results);
+    </script>
+</body>
+</html>
